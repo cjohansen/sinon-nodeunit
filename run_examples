@@ -1,0 +1,8 @@
+#!/usr/bin/env node
+require.paths.unshift(__dirname + '/deps/sinon/lib');
+require.paths.unshift(__dirname + '/deps/nodeunit/lib');
+require.paths.unshift(__dirname + '/deps');
+require.paths.unshift(__dirname + '/lib');
+
+var reporter = require('nodeunit').reporters.default;
+reporter.run(['manual-test']);

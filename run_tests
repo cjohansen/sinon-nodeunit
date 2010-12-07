@@ -1,0 +1,6 @@
+#!/usr/bin/env node
+require.paths.unshift("./deps/nodeunit/lib");
+require.paths.unshift("./deps/sinon/lib");
+require.paths.unshift("./lib");
+
+require("./test/sinon-nodeunit-test.js");
