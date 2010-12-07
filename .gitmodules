@@ -1,0 +1,3 @@
+[submodule "deps/sinon"]
+	path = deps/sinon
+	url = https://github.com/cjohansen/Sinon.JS.git
