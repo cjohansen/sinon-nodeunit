@@ -1,0 +1,22 @@
+{ 
+  "name": "sinon-nodeunit",
+  "description": "nodeunit adapter for Sinon.JS: JavaScript test spies, stubs and mocks.",
+  "version": "0.1.0",
+  "homepage": "http://cjohansen.no/sinon/sinon-nodeunit/",
+  "author": "Christian Johansen",
+  "repository": { 
+    "type": "git",
+    "url": "http://github.com/cjohansen/sinon-nodeunit.git"
+  },
+  "bugs": { 
+    "mail": "christian@cjohansen.no",
+    "web": "http://github.com/cjohansen/sinon-nodeunit/issues"
+  },
+  "licenses": [ 
+     { "type": "BSD",
+       "url": "http://github.com/cjohansen/sinon-nodeunit/blob/master/LICENSE",
+     }
+  ],
+  "main": "./lib/sinon-nodeunit.js",
+  "engines": { "node": ">=0.1.103" }
+}

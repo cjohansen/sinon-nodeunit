@@ -1,3 +1,5 @@
+/*jslint onevar: false, eqeqeq: false, plusplus: false*/
+/*global require, setTimeout*/
 var sinon = require("sinon");
 sinon.assert = require("sinon/assert");
 var nucore = require("core");
@@ -11,19 +13,23 @@ var typesTestSpy = sinon.spy(types, "test");
 require("sinon-nodeunit");
 
 // Should run the original runTest method
-var opt = {};
-var test = sinon.spy();
-var callback = sinon.spy();
-nucore.runTest("some test", test, opt, callback);
+(function () {
+    var opt = {};
+    var test = sinon.spy();
+    var callback = sinon.spy();
+    nucore.runTest("some test", test, opt, callback);
 
-assert.ok(runTestSpy.called, "Should run original runTest");
-assert.equal("some test", runTestSpy.args[0][0]);
-assert.equal(opt, runTestSpy.args[0][2]);
-assert.equal(callback, runTestSpy.args[0][3]);
-assert.ok(test.called);
+    assert.ok(runTestSpy.called, "Should run original runTest");
+    assert.equal("some test", runTestSpy.args[0][0]);
+    assert.equal(opt, runTestSpy.args[0][2]);
+    assert.equal(callback, runTestSpy.args[0][3]);
+    assert.ok(test.called);
+}());
 
 // Should run the original types.test function
 (function () {
+    var opt = {};
+    var callback = sinon.spy();
     types.test("some test", 0, opt, callback);
 
     assert.ok(typesTestSpy.calledWith("some test", 0, opt, callback),
@@ -32,6 +38,8 @@ assert.ok(test.called);
 
 // Should inject sandbox to test object
 (function () {
+    var opt = {};
+    var callback = sinon.spy();
     var testObj = types.test("some test", 0, opt, callback);
 
     assert.equal(typeof testObj.spy, "function",
@@ -76,7 +84,7 @@ assert.ok(test.called);
 
         test.ok(false);
         test.done();
-    };
+    }
 
     nucore.runTest("some test", testFn, {}, function () {});
     assert.equal(origMeth, objectUnderTest.meth);
@@ -93,7 +101,7 @@ assert.ok(test.called);
     function testFn(test) {
         test.stub(objectUnderTest, "meth").returns(42);
         throw new Error("Oops!");
-    };
+    }
 
     nucore.runTest("some test", testFn, {}, function () {});
     assert.equal(origMeth, objectUnderTest.meth);
@@ -101,15 +109,15 @@ assert.ok(test.called);
     assert.throws(function () {
         runTestSpy.getCall(runTestSpy.callCount - 1).args[1]({
             sandbox: sinon.sandbox.create()
-        })
+        });
     });
 }());
 
 // Should preserve return value
 (function () {
-    function testFn(test) {
+    function testFn() {
         return 422;
-    };
+    }
 
     nucore.runTest("some test", testFn, {}, function () {});
 
@@ -131,7 +139,7 @@ assert.ok(test.called);
 
         clock.tick(400);
         test.done();
-    };
+    }
 
     nucore.runTest("some test", testFn, {}, function () {});
     assert.equal(400, result);
@@ -152,7 +160,7 @@ assert.ok(test.called);
 
         test.clock.tick(800);
         test.done();
-    };
+    }
 
     nucore.runTest("some test", testFn, {}, function () {});
     assert.equal(800, result);
@@ -167,7 +175,7 @@ assert.ok(test.called);
         spy();
 
         test.called(spy);
-    };
+    }
 
     nucore.runTest("some test", testFn, {}, function () {});
     assert.ok(sinon.assert.called.called); // Whoa!
@@ -180,7 +188,7 @@ assert.ok(test.called);
 
     function testFn(test) {
         test.fail("Oh noes!");
-    };
+    }
 
     nucore.runTest("some test", testFn, {}, function () {});
     assert.ok(!sinon.assert.fail.called);
@@ -192,7 +200,7 @@ assert.ok(test.called);
 
     function testFn(test) {
         type = typeof test.pass;
-    };
+    }
 
     nucore.runTest("some test", testFn, {}, function () {});
     assert.equal("undefined", type);
@@ -204,7 +212,7 @@ assert.ok(test.called);
 
     function testFn(test) {
         type = typeof test.expose;
-    };
+    }
 
     nucore.runTest("some test", testFn, {}, function () {});
     assert.equal("undefined", type);
@@ -230,7 +238,7 @@ assert.ok(test.called);
                       [typeof test.alwaysCalledWithExactly, "alwaysCalledWithExactly"],
                       [typeof test.threw, "threw"],
                       [typeof test.alwaysThrew, "alwaysThrew"]];
-    };
+    }
 
     nucore.runTest("some test", testFn, {}, function () {});
 
