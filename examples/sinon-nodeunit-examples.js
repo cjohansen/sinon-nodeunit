@@ -24,6 +24,11 @@ exports.testWithStub = function (test) {
     test.done();
 };
 
+exports['test sinon-nodeunit'] = function (test) {
+    mock = test.mock({});
+    test.done();
+};
+
 exports.testWithMock = function (test) {
     test.mock(someAPI).expects("method").returns(42).once();
     someAPI.method();
